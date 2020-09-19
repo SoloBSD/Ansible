@@ -1,0 +1,9 @@
+---
+
+- hosts: CentOS
+  become: yes
+  tasks:
+
+  - name: Restart Webmail
+    shell: sh /home/memo/mail_server
+    failed_when: false

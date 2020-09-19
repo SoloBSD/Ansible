@@ -1,0 +1,10 @@
+---
+
+- block:
+  - name: Installing basic software
+  become: True
+  become_method: doas
+  openbsd_pkg: name={{ item }} state=present
+  with_items:
+    - git
+    - vim

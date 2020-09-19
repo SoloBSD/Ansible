@@ -1,0 +1,9 @@
+---
+- hosts: OpenBSD
+
+  tasks:
+  - name: reboot server
+    become: yes
+    become_method: doas
+    shell: reboot
+    failed_when: false
