@@ -9,7 +9,7 @@
 #            apply: true
     register: syspatch
     vars:
-      ansible_become_password: Megadeth22$
+      ansible_become_password: Megadeth25$
 
   - name: Reboot if patch requires it
     become: yes
@@ -17,7 +17,7 @@
     ansible.builtin.reboot:
     when: syspatch.reboot_needed
     vars:
-      ansible_become_password: Megadeth22$
+      ansible_become_password: Megadeth25$
 
     #  - name: Set authorized key
     #    authorized_key:
