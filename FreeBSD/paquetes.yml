@@ -1,0 +1,8 @@
+- hosts: FreeBSD
+
+  tasks:
+  - name: Update Packages
+    become: yes
+    become_method: doas
+    shell: pkg update && pkg upgrade -y
+    failed_when: false

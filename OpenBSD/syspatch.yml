@@ -2,7 +2,33 @@
 - hosts: OpenBSD
 
   tasks:
-  - name: install latest patches
+  - name: Apply all available system patches and store result
     become: yes
     become_method: doas
-    shell: syspatch
+    community.general.syspatch:
+#            apply: true
+    register: syspatch
+    vars:
+      ansible_become_password: Megadeth22$
+
+  - name: Reboot if patch requires it
+    become: yes
+    become_method: doas
+    ansible.builtin.reboot:
+    when: syspatch.reboot_needed
+    vars:
+      ansible_become_password: Megadeth22$
+
+    #  - name: Set authorized key
+    #    authorized_key:
+    #      user: memo
+    #      state: present
+    #      key: "{{ lookup('file', '/home/memo/.ssh/id_rsa.pub')}}"
+
+    #  - name: Sending email
+    #    local_action: mail
+    #                  host='127.0.0.1'
+    #                  subject="[Ansible] All tasks completed for OpenBSD syspatch"
+    #                  body="Hi, Ansible has done its job!"
+    #                  from="memo@gopher.solobsd.org"
+    #                  to="garciarojas@petalmail.com"

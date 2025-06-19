@@ -1,0 +1,8 @@
+---
+- hosts: OpenBSD
+
+  tasks:
+  - name: install latest patches
+    become: yes
+    become_method: doas
+    shell: syspatch
